@@ -3,12 +3,16 @@ provider "aws" {
 }
 
 resource "aws_instance" "demo-server" {
-    ami = "ami-002f6e91abff6eb96"
+    ami = "ami-0e35ddab05955cf57"
     instance_type = "t2.micro"
     key_name = "keypair1"
     //security_groups = ["demo-sg"]
     vpc_security_group_ids = [aws_security_group.demo-sg.id]
     subnet_id = aws_subnet.demo-public-subnet-01.id
+    for_each = toset(["Jenkins-master", "build-slave", "ansible"])
+   tags = {
+     Name = "${each.key}"
+   }
 
 }
 
@@ -18,9 +22,17 @@ resource "aws_security_group" "demo-sg" {
   vpc_id = aws_vpc.demo-vpc.id
 
   ingress {
-    description      = "Shh access"
+    description      = "SSH access"
     from_port        = 22
     to_port          = 22
+    protocol         = "tcp"
+    cidr_blocks      = ["0.0.0.0/0"]
+    }
+
+    ingress {
+    description      = "Jenkins port"
+    from_port        = 8080
+    to_port          = 8080
     protocol         = "tcp"
     cidr_blocks      = ["0.0.0.0/0"]
     }
