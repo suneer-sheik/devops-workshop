@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: valaxy-rtp
-  namespace: valaxy
+  name: suneer-rtp
+  namespace: suneer
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app:  valaxy-rtp
+      app:  suneer-rtp
   template:
     metadata:
       labels:
-        app:  valaxy-rtp
+        app:  suneer-rtp
     spec:
       imagePullSecrets:
       - name: jfrogcred
       containers:
-      - name:  valaxy-rtp
-        image: valaxy01.jfrog.io/valaxy-docker/ttrend:2.1.2
+      - name:  suneer-rtp
+        image: suneer.jfrog.io/suneer-docker/ttrend:2.1.2
         imagePullPolicy: Always
         ports:
         - containerPort: 8000
