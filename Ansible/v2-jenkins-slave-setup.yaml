@@ -10,17 +10,17 @@
 
   - name: install java 
     apt: 
-      name: openjdk-11-jre
+      name: openjdk-17-jre
       state: present
 
   - name: download maven packages 
     get_url:
-      url: https://dlcdn.apache.org/maven/maven-3/3.9.2/binaries/apache-maven-3.9.2-bin.tar.gz
+      url: https://dlcdn.apache.org/maven/maven-3/3.9.9/binaries/apache-maven-3.9.9-bin.tar.gz
       dest: /opt
 
   - name: extract maven packages 
     unarchive:
-      src: /opt/apache-maven-3.9.2-bin.tar.gz
+      src: /opt/apache-maven-3.9.9-bin.tar.gz
       dest: /opt 
       remote_src: yes
 
